@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="clientService"
+          class="org.example.beans.ClientService"
+          factory-method="createInstance"/>
+
+    <bean id="helloWorld"
+          class="org.example.scope.HelloWorld" scope="prototype"/>
+    
+    <!--Create the difference between creating bean with XML and annotation-->
+    <bean id="author" class ="org.example.beans.Author">
+        <constructor-arg index="0" value="Nhsmai"/>
+    </bean>
+    <bean id="book" class="org.example.beans.Book">
+        <property name="author" ref="author"></property>
+    </bean>
+    
+    <!--Create inner bean-->
+    <bean id="Customerbean" class="org.example.beans.innerbeans.Customer">
+        <property name="Person">
+            <bean class="org.example.beans.innerbeans.Person">
+                <property name="name" value="Nguyen handsome"/>
+                <property name="address" value="UIT"/>
+                <property name="age" value="21"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!--Create Collection bean-->
+    <bean id="PersonBean" class="org.example.beans.innerbeans.Person">
+        <property name="name" value="Nhsmai" />
+        <property name="address" value="HCM" />
+        <property name="age" value="21" />
+    </bean>
+
+    <bean id="CustomerListHolder" class="org.example.beans.beanCollection.CustomerListHolder">
+        <property name="lists">
+            <list>
+                <value>1</value>
+                <ref bean="PersonBean"/>
+                <ref bean="Customerbean"/>
+            </list>
+        </property>
+    </bean>
+
+    <!--Create inheritance bean-->
+    <bean id="Actions" abstract="true">
+        <property name="speak" value="parent"/>
+    </bean>
+
+    <bean id="children" parent="Actions" class="org.example.beans.inheritance.Person">
+        <property name="speak" value="Nguyen dep trai"/>
+        <property name="work" value="Student at home"/>
+    </bean>
+
+    <bean id="cat" parent="Actions" class="org.example.beans.inheritance.Cat">
+
+    </bean>
+</beans>
