@@ -5,6 +5,9 @@ import org.example.beans.beanCollection.CustomerListHolder;
 import org.example.beans.inheritance.Cat;
 import org.example.beans.inheritance.Person;
 import org.example.beans.innerbeans.Customer;
+import org.example.service.A;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import org.example.beans.ClientService;
@@ -14,7 +17,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) {
+        // Create context with XML
         ApplicationContext context = new ClassPathXmlApplicationContext("AppConfig.xml");
         org.example.beans.ClientService service = (ClientService) context.getBean("clientService");
         service.doWork();
@@ -27,7 +33,7 @@ public class Main {
         HelloWorld objB = (HelloWorld) context.getBean("helloWorld");
         objB.getMessage();
 
-        // Create bean with Annotation
+        // Create context with Annotation
         ApplicationContext context1 = new AnnotationConfigApplicationContext(AppConfig.class);
 
         Book book = context1.getBean(Book.class);
@@ -52,5 +58,18 @@ public class Main {
         ng1.showInfo();
         Cat cat1 = (Cat) context.getBean("cat");
         cat1.showInfo();
+
+        //Demo aspects after
+        A a = context1.getBean(A.class);
+        a.m1();
+        a.m2();
+        a.m3();
+        a.n1();
+
+        A b =(A) context.getBean("a");
+        b.m1();
+        b.m2();
+        b.m3();
+        b.n1();
     }
     }
