@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.aspect.Myaspect;
 import org.example.beans.Book;
 import org.example.beans.beanCollection.CustomerListHolder;
 import org.example.beans.inheritance.Cat;
@@ -59,7 +60,7 @@ public class Main {
         Cat cat1 = (Cat) context.getBean("cat");
         cat1.showInfo();
 
-        //Demo aspects after
+        //Demo aspects with java config
         A a = context1.getBean(A.class);
         a.m1();
         a.m2();
@@ -71,5 +72,9 @@ public class Main {
         b.m2();
         b.m3();
         b.n1();
+
+        //Demo aspects with XML
+        Myaspect c =(Myaspect) context.getBean("myService");
+        c.doSomething();
     }
     }

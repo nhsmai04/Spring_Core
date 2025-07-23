@@ -74,4 +74,15 @@
     <bean id="myAspect" class="org.example.aspect.LoggingAspect">
     </bean>
     <bean id="registerAspect" class="org.example.aspect.RegisterAspect"/>
+
+
+    <!--call Aspect with XML-->
+    <bean id="callAspect" class="org.example.aspect.AspectXML"/>
+    <bean id="myService" class="org.example.aspect.Myaspect"/>
+    <aop:config>
+        <aop:aspect id="xmlAspect" ref="callAspect">
+            <aop:pointcut id="businessService" expression="execution(* org.example.aspect.*.*(..)) &amp;&amp; this(service)"/>
+            <aop:before pointcut-ref="businessService" method="monitor"/>
+        </aop:aspect>
+    </aop:config>
 </beans>
