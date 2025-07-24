@@ -1,2 +1,3 @@
 db.properties
 *.idea/
+/target/
