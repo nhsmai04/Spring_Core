@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Tạo bean = xml-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="author" class="model.Author">
+        <constructor-arg index="0" value="Bang"/>
+    </bean>
+
+    <bean id="book" class="model.book_static" factory-method="createInstance"/>
+
+    <bean id="bookServiceLocator" class="factory.bookServiceLocator"/>
+    <bean id="bookService"
+          factory-bean="bookServiceLocator"
+          factory-method="createBookService"/>
+
+    <bean id="helloWorld" class="model.HelloWord" scope="singleton"/>
+
+    <bean id="hello" class="model.HelloWord" scope="prototype"/>
+</beans>
+

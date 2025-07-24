@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- Đăng ký bean -->
+    <bean id="studentService" class="StudentService"/>
+    <bean id="loggingAspect" class="XML_Aspect"/>
+
+    <!-- Kích hoạt AOP -->
+    <aop:config>
+        <aop:aspect ref="loggingAspect">
+
+            <!-- Pointcut -->
+            <aop:pointcut id="studyPointcut" expression="execution(* StudentService.study(..))"/>
+
+            <!-- Advice -->
+            <aop:before pointcut-ref="studyPointcut" method="logBeforeStudy"/>
+            <aop:after pointcut-ref="studyPointcut" method="logAfterStudy"/>
+            <aop:after-returning pointcut-ref="studyPointcut" returning="A" method="logAfterReturning"/>
+
+        </aop:aspect>
+    </aop:config>
+
+</beans>
