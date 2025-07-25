@@ -1,37 +1,100 @@
 package org.example.spring_jpa.entity;
 
 import jakarta.persistence.*;
-import org.springframework.stereotype.Component;
+
 
 @Entity
-@Component
 @Table(name ="users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
+    private String firstname;
+    private String lastname;
+    private String password;
+    private String phone;
+    @Column(unique = true)
+    private String email;
+    private boolean status = false;
 
-    @Column(unique = true) private String email;
 
     public User() {}
-    public User(String name, String email) {
-        this.name = name;
+
+    public User( String firstname, String lastname, String password, String phone, String email, boolean status) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.password = password;
+        this.phone = phone;
         this.email = email;
+        this.status = status;
     }
-    public User(int id , String name , String email)
-    {
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
-        this.name = name;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public int getId() {return id;}
-    public void setId(int id) {this.id = id;}
+    public boolean isStatus() {
+        return status;
+    }
 
-    public String getName() {return name;}
-    public void setName(String name) {this.name=name;}
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
-    public String getEmail() {return email;}
-    public void setEmail(String email) {this.email=email;}
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }
